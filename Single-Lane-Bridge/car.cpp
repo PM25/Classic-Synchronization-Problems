@@ -13,9 +13,9 @@ Car::Car(bool direction, int timeInterval) : id(++lastID)
     _direction = direction;
 
     // Set velocity
-    if(timeInterval == 0) tickInterval = (5 + rand() % 16);
+    if(timeInterval == -1) tickInterval = (5 + rand() % 16);
     else if(timeInterval > 20) tickInterval = 20;
-    else if(timeInterval < 5) tickInterval = 5;
+    else if(timeInterval < 1) tickInterval = 1;
     else tickInterval = timeInterval;
     tickInterval += (rand() % 5);
 

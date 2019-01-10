@@ -11,7 +11,7 @@ class Car : public SingleLaneBridge
     Q_OBJECT
 
 public:
-    Car(bool direction=0, int timeInterval=0);
+    Car(bool direction=0, int timeInterval=-1);
     void run();
     unsigned int getID() const;
     int getPos() const;

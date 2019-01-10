@@ -7,9 +7,10 @@
 #include <map>
 class Car;
 class TrafficControl;
+class PossionProcess;
 
 const int kMaxCars2Pass = 3;
-const int bridgeTurnPos[6] = {0, 150, 200, 300, 350, 500};
+const int bridgeTurnPos[6] = {0, 75, 100, 150, 175, 250};
 const int bridgeLen = bridgeTurnPos[5];
 const int bridgeEntryPos = bridgeTurnPos[1];
 
@@ -28,7 +29,7 @@ public slots:
     void setCarWidth(int width);
     void checkTraffic();
     void init();
-    void setCreateFreq(int ms);
+    void setCreateFreq(int amountInMin);
     void setCarSpeed(int speed);
     void createCar();
     void autoCreateCar();
@@ -46,7 +47,8 @@ private:
     int upCarsCount;
     int downCarsCount;
     TrafficControl *trafficControler;
-    int createFreq;
+    PossionProcess *possionProcess;
+    int createInterval;
     int carSpeed;
     int carAmount;
 };

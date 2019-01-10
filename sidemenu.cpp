@@ -60,8 +60,8 @@ SideMenu::carControlWidget(int mode)
     case 1: labelTitle -> setText(tr("Speed: ")); break;
     }
     QSlider *slider = new QSlider(Qt::Horizontal);
-    slider -> setRange(100, 1500);
-    slider -> setValue(800);
+    slider -> setRange(1, 300);
+    slider -> setValue(120);
     QLabel *labelValue = new QLabel();
     labelValue -> setText(QString::number(slider -> value()));
 

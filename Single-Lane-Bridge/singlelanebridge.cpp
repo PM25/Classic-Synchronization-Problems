@@ -1,6 +1,7 @@
 #include "singlelanebridge.h"
 #include "car.h"
 #include "trafficcontrol.h"
+#include "possionprocess.h"
 #include <QSemaphore>
 #include <QTimer>
 
@@ -11,7 +12,8 @@ SingleLaneBridge::SingleLaneBridge()
     trafficLightChange = new bool(false);
     rightPass = new bool(false);
     carWidth = 60;
-    createFreq = 800;
+    createInterval = 500;
+    possionProcess = new PossionProcess(createInterval);
     carSpeed = 8;
     carAmount = 0;
 
@@ -36,10 +38,11 @@ SingleLaneBridge::run()
         }
 
         if(iter % 2) {
-            currCar = new Car(true, 15 / carSpeed);
+            currCar = new Car(true, carSpeed);
+            currCar = new Car(true, 5);
             ++downCarsCount;
         } else {
-            currCar = new Car(false, 15 / carSpeed);
+            currCar = new Car(false, carSpeed);
             ++upCarsCount;
         }
         currCar -> setTrafficLight(trafficLight);
@@ -68,7 +71,7 @@ SingleLaneBridge::run()
         connect(currCar, SIGNAL(finished(int)), this, SIGNAL(deleteCar(int)));
         connect(currCar, SIGNAL(enterBridge(bool)), this, SLOT(setEnterCar(bool)));
 
-        QThread::currentThread() -> msleep(unsigned(createFreq));
+        QThread::currentThread() -> msleep(possionProcess->nextTime());
     }
 }
 
@@ -102,9 +105,10 @@ SingleLaneBridge::setCarWidth(int width)
 }
 
 void
-SingleLaneBridge::setCreateFreq(int ms)
+SingleLaneBridge::setCreateFreq(int amountInMin)
 {
-    createFreq = ms;
+    createInterval = (1.0 / amountInMin) * 60000;
+    possionProcess -> setAvg(createInterval);
 }
 
 void
@@ -133,5 +137,5 @@ SingleLaneBridge::autoCreateCar()
 void
 SingleLaneBridge::setCarSpeed(int speed)
 {
-    carSpeed = speed / 100;
+    carSpeed = speed / 30;
 }
