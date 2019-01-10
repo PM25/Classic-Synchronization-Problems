@@ -12,14 +12,18 @@ public:
 
 private:
     QWidget* createControlWidgets();
-    QWidget* carControlWidget(int mode=0);
+    QWidget* carControlWidget(int mode=0, QString text="");
     QVBoxLayout *layout;
+
+public slots:
+    void createUpCarSignal();
+    void createDownCarSignal();
 
 signals:
     void run();
     void freqChange(int);
     void speedChange(int);
-    void createCar();
+    void createCar(bool);
     void autoCreateCar();
 
 public slots:

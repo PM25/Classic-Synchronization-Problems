@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QSemaphore>
 #include <map>
+#include <queue>
 class Car;
 class TrafficControl;
 class PossionProcess;
@@ -31,7 +32,7 @@ public slots:
     void init();
     void setCreateFreq(int amountInMin);
     void setCarSpeed(int speed);
-    void createCar();
+    void createCar(bool direction);
     void autoCreateCar();
 
 signals:
@@ -51,6 +52,7 @@ private:
     int createInterval;
     int carSpeed;
     int carAmount;
+    std::queue<bool> readyCars;
 };
 
 #endif // SINGLELANEBRIDGE_H

@@ -36,15 +36,19 @@ SingleLaneBridge::run()
             if(carAmount == -1) carAmount = iter;
             QThread::currentThread() -> msleep(100);
         }
+        if(carAmount == INT_MAX) {
+            if(rand() % 2) readyCars.push(true);
+            else readyCars.push(false);
+        }
 
-        if(iter % 2) {
+        if(readyCars.front()) {
             currCar = new Car(true, carSpeed);
             currCar = new Car(true, 5);
             ++downCarsCount;
         } else {
             currCar = new Car(false, carSpeed);
             ++upCarsCount;
-        }
+        } readyCars.pop();
         currCar -> setTrafficLight(trafficLight);
         currCar -> setCarPass(trafficLightChange, rightPass);
 
@@ -112,9 +116,10 @@ SingleLaneBridge::setCreateFreq(int amountInMin)
 }
 
 void
-SingleLaneBridge::createCar()
+SingleLaneBridge::createCar(bool direction)
 {
     ++carAmount;
+    readyCars.push(direction);
 }
 
 void
