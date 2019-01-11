@@ -40,6 +40,7 @@ public slots:
     void carWaitTime(bool direction, int time);
     void emitTrafficStatus();
     void makeStarvation();
+    void makeDeadLock();
     void setTimeLimit(bool on);
     void emitInfo();
 

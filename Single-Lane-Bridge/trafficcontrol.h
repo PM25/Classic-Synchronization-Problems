@@ -19,8 +19,10 @@ public:
 public slots:
     void setTrafficLight(QSemaphore *tLight);
     void setCarPass(bool *lightChange, bool *rPass);
+    void setProtect(bool on);
 
 private:
+    bool protect;
 };
 
 #endif // TRAFFICCONTROL_H

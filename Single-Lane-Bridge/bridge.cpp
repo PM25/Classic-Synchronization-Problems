@@ -3,7 +3,7 @@
 
 Bridge::Bridge(int len)
 {
-    length = len + 1;
+    length = len;
     map = new bool[len];
     for(int pos(0); pos < length; ++pos) {
         map[pos] = false;
@@ -24,16 +24,16 @@ Bridge::getLength() const
 bool
 Bridge::move2Map(int from, int to)
 {
-    if(from < 0 || from >= length || to < 0 || from >= length) {
+    if(from < 0 || from > length || to < 0 || from > length) {
         return false;
-    } else if(to == -1) {
+    } else if(to == 0 || to == (length-1)) {
         map[from] = false;
         return true;
     } else if(map[to] == true) {
         return false;
     } else {
         if(from != -1) map[from] = false;
-        map[to] == true;
+        map[to] = true;
         return true;
     }
 }

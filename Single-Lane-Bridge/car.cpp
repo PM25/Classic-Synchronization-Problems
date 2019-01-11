@@ -54,7 +54,7 @@ Car::run()
                 }
             } else {
                 int relativePos(bridgeLen-bridgeEntryPos-pos);
-                bool sucess = world->bridge->move2Map(relativePos+1, relativePos);
+                bool sucess = world->bridge->move2Map(relativePos, relativePos-1);
                 while(!sucess) {
                     QThread::currentThread() -> msleep(500);
                 }

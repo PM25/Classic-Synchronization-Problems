@@ -20,6 +20,7 @@ SingleLaneBridge::SingleLaneBridge()
     checkTimeDelay = 0;
     timeLimit = INT_MAX;
     bridge = new Bridge(bridgeLen - bridgeEntryPos * 2);
+    trafficControler = nullptr;
 
     QTimer *timer = new QTimer;
     connect(timer, SIGNAL(timeout()), this, SLOT(emitInfo()));
@@ -178,9 +179,26 @@ SingleLaneBridge::emitTrafficStatus()
 void
 SingleLaneBridge::makeStarvation()
 {
+    possionProcess -> setAvg((1.0 / 300) * 60000);
+
     for(int i(0); i<80; ++i) {
         createCar(false);
         if(i == 3) createCar(true);
+    }
+}
+
+void
+SingleLaneBridge::makeDeadLock()
+{
+    possionProcess -> setAvg((1.0 / 300) * 60000);
+    carSpeed = 300 / 30;
+
+    if(trafficControler != nullptr) {
+        trafficControler -> setProtect(false);
+        for(int i(0); i<20; ++i) {
+            if(i % 2) createCar(true);
+            else createCar(false);
+        }
     }
 }
 

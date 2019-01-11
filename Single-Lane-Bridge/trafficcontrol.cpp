@@ -2,6 +2,7 @@
 
 TrafficControl::TrafficControl()
 {
+    protect = true;
 }
 
 void
@@ -11,7 +12,7 @@ TrafficControl::run()
         (*disablePass) = true;
 
         // Wait until there's no car on bridge
-        trafficLight -> acquire(kMaxCars2Pass);
+        if(protect) trafficLight -> acquire(kMaxCars2Pass);
 
         if(*rightPass) {
             *rightPass = false;
@@ -19,7 +20,7 @@ TrafficControl::run()
         else {
             *rightPass = true;
         }
-        trafficLight -> release(kMaxCars2Pass);
+        if(protect) trafficLight -> release(kMaxCars2Pass);
 
         (*disablePass) = false;
     }
@@ -44,4 +45,11 @@ TrafficControl::setLanePass(bool direction)
     if(*rightPass != direction){
         this -> start();
     }
+}
+
+void
+TrafficControl::setProtect(bool on)
+{
+    if(on) protect = true;
+    else protect = false;
 }

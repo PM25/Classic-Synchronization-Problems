@@ -26,6 +26,7 @@ signals:
     void createCar(bool);
     void autoCreateCar();
     void makeStarvation();
+    void makeDeadLock();
     void setTimeLimit(bool);
 
 public slots:
