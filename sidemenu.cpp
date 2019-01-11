@@ -30,7 +30,7 @@ SideMenu::createControlWidgets()
     QPushButton *addDownCarBtn = new QPushButton(tr("Add (Right)"));
     QPushButton *autoCreateCarBtn = new QPushButton(tr("Auto"));
     QPushButton *starvation = new QPushButton(tr("Starvation"));
-    QPushButton *deadLock = new QPushButton(tr("DeadLock"));
+    QPushButton *deadLock = new QPushButton(tr("DeadLock\n(Remove Semaphore)"));
     QCheckBox *timeLimit = new QCheckBox(tr("Set time limit (5sec)"));
     QWidget *carFreq = carControlWidget(0, "(cars/min)");
     QWidget *carSpeed = carControlWidget(1, "(1/speed)");
