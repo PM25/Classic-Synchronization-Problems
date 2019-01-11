@@ -22,8 +22,8 @@ SingleLaneBridge::SingleLaneBridge()
     bridge = new Bridge(bridgeLen - bridgeEntryPos * 2);
 
     QTimer *timer = new QTimer;
-    connect(timer, SIGNAL(timeout()), this, SLOT(emitTrafficStatus()));
-    timer -> start(500);
+    connect(timer, SIGNAL(timeout()), this, SLOT(emitInfo()));
+    timer -> start(300);
 }
 
 void
@@ -189,4 +189,11 @@ SingleLaneBridge::setTimeLimit(bool on)
 {
     if(on) timeLimit = 5000;
     else timeLimit = INT_MAX;
+}
+
+void
+SingleLaneBridge::emitInfo()
+{
+    emitTrafficStatus();
+    emit carCounts(upCarsCount, downCarsCount);
 }

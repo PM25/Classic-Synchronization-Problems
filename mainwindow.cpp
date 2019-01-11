@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(problem, SIGNAL(deleteCar(int)), canvas, SLOT(deleteObject(int)));
     connect(problem, SIGNAL(waitTime(bool,int)), informationbox, SLOT(setLabel1(bool,int)));
     connect(problem, SIGNAL(trafficStatus(int)), informationbox, SLOT(setLabel2(int)));
+    connect(problem, SIGNAL(carCounts(int,int)), informationbox, SLOT(setLabel3And4(int,int)));
 
     // Layout
     QGridLayout *mainLayout = new QGridLayout();

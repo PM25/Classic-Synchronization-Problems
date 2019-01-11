@@ -13,8 +13,15 @@ InformationBox::InformationBox(QWidget *parent) : QWidget(parent)
     label1 = new QLabel("Right wait: ");
     label2 = new QLabel(">");
 
+    QVBoxLayout *carCounts = new QVBoxLayout();
+    label3 = new QLabel("Up cars: 0");
+    label4 = new QLabel("Down cars: 0");
+    carCounts -> addWidget(label3);
+    carCounts -> addWidget(label4);
+
     layout -> addWidget(label1);
     layout -> addWidget(label2);
+    layout -> addLayout(carCounts);
 }
 
 void
@@ -33,5 +40,12 @@ InformationBox::setLabel2(int status)
     case 3: label2 -> setText("X"); break;
     default: break;
     }
+}
+
+void
+InformationBox::setLabel3And4(int upCount, int downCount)
+{
+    label3 -> setText("Up cars: " + QString::number(upCount));
+    label4 -> setText("Down cars: " + QString::number(downCount));
 }
 

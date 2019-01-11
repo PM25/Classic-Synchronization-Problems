@@ -41,12 +41,14 @@ public slots:
     void emitTrafficStatus();
     void makeStarvation();
     void setTimeLimit(bool on);
+    void emitInfo();
 
 signals:
     void carChanged(int carID, int pos);
     void deleteCar(int carID);
     void waitTime(bool direction, int time);
     void trafficStatus(int status);
+    void carCounts(int upCount, int downCount);
 
 private:
     // No more car can enter the bridge if true

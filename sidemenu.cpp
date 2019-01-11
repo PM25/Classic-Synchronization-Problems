@@ -30,7 +30,7 @@ SideMenu::createControlWidgets()
     QPushButton *addDownCarBtn = new QPushButton(tr("Add (Right)"));
     QPushButton *autoCreateCarBtn = new QPushButton(tr("Auto"));
     QPushButton *starvation = new QPushButton(tr("Starvation"));
-    QCheckBox *timeLimit = new QCheckBox(tr("Set time limit"));
+    QCheckBox *timeLimit = new QCheckBox(tr("Set time limit (5sec)"));
     QWidget *carFreq = carControlWidget(0, "(cars/min)");
     QWidget *carSpeed = carControlWidget(1, "(1/speed)");
 
@@ -70,7 +70,7 @@ SideMenu::carControlWidget(int mode, QString text)
     case 1: labelTitle -> setText(tr("Speed: ")); break;
     }
     QSlider *slider = new QSlider(Qt::Horizontal);
-    slider -> setRange(1, 300);
+    slider -> setRange(10, 300);
     slider -> setValue(120);
     QLabel *labelValue = new QLabel();
     labelValue -> setText(QString::number(slider -> value()));
