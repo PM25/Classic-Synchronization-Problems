@@ -11,7 +11,7 @@ class Car : public SingleLaneBridge
     Q_OBJECT
 
 public:
-    Car(bool direction=0, int timeInterval=-1);
+    Car(SingleLaneBridge *bridge, bool direction=0, int timeInterval=-1);
     void run();
     unsigned int getID() const;
     int getPos() const;
@@ -41,6 +41,7 @@ private:
     bool *rightPass;
     int *maxDistance;
     Car *back;
+    SingleLaneBridge *world;
 };
 
 #endif // MYTHREADS_H

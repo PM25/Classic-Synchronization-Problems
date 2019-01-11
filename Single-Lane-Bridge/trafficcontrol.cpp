@@ -41,7 +41,7 @@ TrafficControl::setCarPass(bool *lightChange, bool *rPass)
 void
 TrafficControl::setLanePass(bool direction)
 {
-    if(*rightPass == direction){
+    if(*rightPass != direction){
         this -> start();
     }
 }

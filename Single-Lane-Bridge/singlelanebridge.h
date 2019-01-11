@@ -29,11 +29,13 @@ public slots:
     void setEnterCar(bool direction);
     void setCarWidth(int width);
     void checkTraffic();
+    void changeTraffic(bool direction);
     void init();
     void setCreateFreq(int amountInMin);
     void setCarSpeed(int speed);
     void createCar(bool direction);
     void autoCreateCar();
+    void carWaitTime(bool direction, int time);
 
 signals:
     void carChanged(int carID, int pos);
@@ -53,6 +55,7 @@ private:
     int carSpeed;
     int carAmount;
     std::queue<bool> readyCars;
+    int checkTimeDelay;
 };
 
 #endif // SINGLELANEBRIDGE_H

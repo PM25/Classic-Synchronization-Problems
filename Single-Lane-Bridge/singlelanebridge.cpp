@@ -16,10 +16,11 @@ SingleLaneBridge::SingleLaneBridge()
     possionProcess = new PossionProcess(createInterval);
     carSpeed = 8;
     carAmount = 0;
+    checkTimeDelay = 0;
 
     QTimer *timer = new QTimer;
-    connect(timer, SIGNAL(timeout()), this, SLOT(checkTraffic()));
-    timer -> start(1000);
+//    connect(timer, SIGNAL(timeout()), this, SLOT(checkTraffic()));
+//    timer -> start(1000);
 }
 
 void
@@ -42,11 +43,10 @@ SingleLaneBridge::run()
         }
 
         if(readyCars.front()) {
-            currCar = new Car(true, carSpeed);
-            currCar = new Car(true, 5);
+            currCar = new Car(this, true, carSpeed);
             ++downCarsCount;
         } else {
-            currCar = new Car(false, carSpeed);
+            currCar = new Car(this, false, carSpeed);
             ++upCarsCount;
         } readyCars.pop();
         currCar -> setTrafficLight(trafficLight);
@@ -125,11 +125,22 @@ SingleLaneBridge::createCar(bool direction)
 void
 SingleLaneBridge::checkTraffic()
 {
-    if(downCarsCount > upCarsCount && !(*trafficLightChange)) {
-        trafficControler -> setLanePass(false);
-    } else if(upCarsCount > downCarsCount && !(*trafficLightChange)) {
-        trafficControler -> setLanePass(true);
+    if(checkTimeDelay == 0) {
+        if(downCarsCount > upCarsCount && !(*trafficLightChange)) {
+            trafficControler -> setLanePass(true);
+        } else if(upCarsCount > downCarsCount && !(*trafficLightChange)) {
+            trafficControler -> setLanePass(false);
+        }
+    } else {
+        --checkTimeDelay;
     }
+}
+
+void
+SingleLaneBridge::changeTraffic(bool direction)
+{
+    checkTimeDelay = 20;
+    trafficControler -> setLanePass(direction);
 }
 
 void
@@ -143,4 +154,11 @@ void
 SingleLaneBridge::setCarSpeed(int speed)
 {
     carSpeed = speed / 30;
+}
+
+void
+SingleLaneBridge::carWaitTime(bool direction, int time)
+{
+    if(time >= 5000) changeTraffic(direction);
+    else checkTraffic();
 }

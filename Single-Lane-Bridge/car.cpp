@@ -3,10 +3,11 @@
 
 unsigned int Car::lastID = 0;
 
-Car::Car(bool direction, int timeInterval) : id(++lastID)
+Car::Car(SingleLaneBridge *bridge, bool direction, int timeInterval) : id(++lastID)
 {
     srand(lastID);
 
+    world = bridge;
     maxDistance = new int(0);
 
     // Set direction
@@ -32,7 +33,12 @@ Car::run()
         if(pos == bridgeEntryPos) {
             // Wait until bridge ok to go
             while(*disablePass) QThread::currentThread() -> msleep(100);
-            while(*rightPass != _direction) QThread::currentThread() -> msleep(100);
+            int waitTime = 0;
+            while(*rightPass != _direction) {
+                world -> carWaitTime(_direction, waitTime);
+                QThread::currentThread() -> msleep(100);
+                waitTime += 100;
+            }
 
             trafficLight->acquire(1);
             emit enterBridge(_direction);
