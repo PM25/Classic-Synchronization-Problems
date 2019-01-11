@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "sidemenu.h"
+#include "informationbox.h"
 #include "canvas.h"
 #include "Single-Lane-Bridge/singlelanebridge.h"
 #include <QHBoxLayout>
@@ -27,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Widgets
     SideMenu *sidemenu = new SideMenu();
+    InformationBox *informationbox = new InformationBox();
     Canvas *canvas = new Canvas();
 
     // Problem
@@ -37,15 +39,21 @@ MainWindow::MainWindow(QWidget *parent)
     connect(sidemenu, SIGNAL(autoCreateCar()), problem, SLOT(autoCreateCar()));
     connect(sidemenu, SIGNAL(freqChange(int)), problem, SLOT(setCreateFreq(int)));
     connect(sidemenu, SIGNAL(speedChange(int)), problem, SLOT(setCarSpeed(int)));
+    connect(sidemenu, SIGNAL(makeStarvation()), problem, SLOT(makeStarvation()));
+    connect(sidemenu, SIGNAL(setTimeLimit(bool)), problem, SLOT(setTimeLimit(bool)));
     connect(problem, SIGNAL(carChanged(int,int)), canvas, SLOT(setObjects(int,int)));
     connect(problem, SIGNAL(deleteCar(int)), canvas, SLOT(deleteObject(int)));
+    connect(problem, SIGNAL(waitTime(bool,int)), informationbox, SLOT(setLabel1(bool,int)));
+    connect(problem, SIGNAL(trafficStatus(int)), informationbox, SLOT(setLabel2(int)));
 
     // Layout
     QGridLayout *mainLayout = new QGridLayout();
     mainLayout -> addWidget(canvas, 0, 0);
     mainLayout -> setRowStretch(0, 5);
-    mainLayout -> addWidget(sidemenu, 1, 0);
+    mainLayout -> addWidget(informationbox, 1, 0);
     mainLayout -> setRowStretch(1, 1);
+    mainLayout -> addWidget(sidemenu, 2, 0);
+    mainLayout -> setRowStretch(2, 1);
 
     //Set layout
     win -> setLayout(mainLayout);

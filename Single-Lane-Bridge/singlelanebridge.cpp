@@ -18,7 +18,12 @@ SingleLaneBridge::SingleLaneBridge()
     carSpeed = 8;
     carAmount = 0;
     checkTimeDelay = 0;
+    timeLimit = INT_MAX;
     bridge = new Bridge(bridgeLen - bridgeEntryPos * 2);
+
+    QTimer *timer = new QTimer;
+    connect(timer, SIGNAL(timeout()), this, SLOT(emitTrafficStatus()));
+    timer -> start(500);
 }
 
 void
@@ -157,6 +162,31 @@ SingleLaneBridge::setCarSpeed(int speed)
 void
 SingleLaneBridge::carWaitTime(bool direction, int time)
 {
-    if(time >= 5000) changeTraffic(direction);
+    emit waitTime(direction, time);
+    if(time >= timeLimit) changeTraffic(direction);
     else checkTraffic();
+}
+
+void
+SingleLaneBridge::emitTrafficStatus()
+{
+    if(*trafficLightChange) emit trafficStatus(3);
+    else if(*rightPass) emit trafficStatus(2);
+    else emit trafficStatus(1);
+}
+
+void
+SingleLaneBridge::makeStarvation()
+{
+    for(int i(0); i<80; ++i) {
+        createCar(false);
+        if(i == 3) createCar(true);
+    }
+}
+
+void
+SingleLaneBridge::setTimeLimit(bool on)
+{
+    if(on) timeLimit = 5000;
+    else timeLimit = INT_MAX;
 }

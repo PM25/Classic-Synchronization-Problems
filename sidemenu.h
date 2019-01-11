@@ -25,6 +25,8 @@ signals:
     void speedChange(int);
     void createCar(bool);
     void autoCreateCar();
+    void makeStarvation();
+    void setTimeLimit(bool);
 
 public slots:
 };

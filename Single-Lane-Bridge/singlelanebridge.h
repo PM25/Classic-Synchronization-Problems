@@ -38,10 +38,15 @@ public slots:
     void createCar(bool direction);
     void autoCreateCar();
     void carWaitTime(bool direction, int time);
+    void emitTrafficStatus();
+    void makeStarvation();
+    void setTimeLimit(bool on);
 
 signals:
     void carChanged(int carID, int pos);
     void deleteCar(int carID);
+    void waitTime(bool direction, int time);
+    void trafficStatus(int status);
 
 private:
     // No more car can enter the bridge if true
@@ -58,6 +63,7 @@ private:
     int carAmount;
     std::queue<bool> readyCars;
     int checkTimeDelay;
+    int timeLimit;
 };
 
 #endif // SINGLELANEBRIDGE_H

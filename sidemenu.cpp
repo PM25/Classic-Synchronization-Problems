@@ -5,6 +5,7 @@
 #include <QHBoxLayout>
 #include <QSlider>
 #include <QLabel>
+#include <QCheckBox>
 
 SideMenu::SideMenu(QWidget *parent) : QWidget(parent)
 {
@@ -28,23 +29,29 @@ SideMenu::createControlWidgets()
     QPushButton *addUpCarBtn = new QPushButton(tr("Add (Left)"));
     QPushButton *addDownCarBtn = new QPushButton(tr("Add (Right)"));
     QPushButton *autoCreateCarBtn = new QPushButton(tr("Auto"));
+    QPushButton *starvation = new QPushButton(tr("Starvation"));
+    QCheckBox *timeLimit = new QCheckBox(tr("Set time limit"));
     QWidget *carFreq = carControlWidget(0, "(cars/min)");
     QWidget *carSpeed = carControlWidget(1, "(1/speed)");
 
     // Layout
-    carLayout -> addWidget(carLabel, 0, 0, 1, 4);
+    carLayout -> addWidget(carLabel, 0, 0, 1, 5);
     carLayout -> addWidget(startBtn, 1, 0);
     carLayout -> addWidget(addUpCarBtn, 1, 1);
     carLayout -> addWidget(autoCreateCarBtn, 1, 2);
     carLayout -> addWidget(addDownCarBtn, 1, 3);
+    carLayout -> addWidget(starvation, 1, 4);
     carLayout -> addWidget(carFreq, 2, 0, 1, 4);
-    carLayout -> addWidget(carSpeed, 3, 0, 1, 4);
+    carLayout -> addWidget(timeLimit, 2, 4);
+    carLayout -> addWidget(carSpeed, 3, 0, 1, 5);
 
     // Behavior
     connect(startBtn, SIGNAL(clicked()), this, SIGNAL(run()));
     connect(addUpCarBtn, SIGNAL(clicked()), this, SLOT(createUpCarSignal()));
     connect(addDownCarBtn, SIGNAL(clicked()), this, SLOT(createDownCarSignal()));
     connect(autoCreateCarBtn, SIGNAL(clicked()), this, SIGNAL(autoCreateCar()));
+    connect(starvation, SIGNAL(clicked()), this, SIGNAL(makeStarvation()));
+    connect(timeLimit, SIGNAL(clicked(bool)), this, SIGNAL(setTimeLimit(bool)));
 
     // Pack as a widget
     QWidget *carMenu = new QWidget;

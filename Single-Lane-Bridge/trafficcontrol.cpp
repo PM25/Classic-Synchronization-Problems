@@ -7,7 +7,7 @@ TrafficControl::TrafficControl()
 void
 TrafficControl::run()
 {
-    if(!(*disablePass)){
+    if(!(*disablePass)) {
         (*disablePass) = true;
 
         // Wait until there's no car on bridge
