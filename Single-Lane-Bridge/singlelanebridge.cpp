@@ -2,6 +2,7 @@
 #include "car.h"
 #include "trafficcontrol.h"
 #include "possionprocess.h"
+#include "bridge.h"
 #include <QSemaphore>
 #include <QTimer>
 
@@ -17,10 +18,7 @@ SingleLaneBridge::SingleLaneBridge()
     carSpeed = 8;
     carAmount = 0;
     checkTimeDelay = 0;
-
-    QTimer *timer = new QTimer;
-//    connect(timer, SIGNAL(timeout()), this, SLOT(checkTraffic()));
-//    timer -> start(1000);
+    bridge = new Bridge(bridgeLen - bridgeEntryPos * 2);
 }
 
 void

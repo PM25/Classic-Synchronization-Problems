@@ -31,7 +31,8 @@ SOURCES += \
     Single-Lane-Bridge/singlelanebridge.cpp \
     Single-Lane-Bridge/car.cpp \
     Single-Lane-Bridge/trafficcontrol.cpp \
-    Single-Lane-Bridge/possionprocess.cpp
+    Single-Lane-Bridge/possionprocess.cpp \
+    Single-Lane-Bridge/bridge.cpp
 
 HEADERS += \
         canvas.h \
@@ -41,7 +42,8 @@ HEADERS += \
     Single-Lane-Bridge/singlelanebridge.h \
     Single-Lane-Bridge/car.h \
     Single-Lane-Bridge/trafficcontrol.h \
-    Single-Lane-Bridge/possionprocess.h
+    Single-Lane-Bridge/possionprocess.h \
+    Single-Lane-Bridge/bridge.h
 
 RESOURCES += \
     resourcefile.qrc

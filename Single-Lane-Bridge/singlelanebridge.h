@@ -9,6 +9,7 @@
 class Car;
 class TrafficControl;
 class PossionProcess;
+class Bridge;
 
 const int kMaxCars2Pass = 3;
 const int bridgeTurnPos[6] = {0, 75, 100, 150, 175, 250};
@@ -23,6 +24,7 @@ public:
     SingleLaneBridge();
     void run();
     int carWidth;
+    Bridge *bridge;
 
 public slots:
     void updatePos(Car *car, int pos);

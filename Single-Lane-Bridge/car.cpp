@@ -1,4 +1,5 @@
 #include "car.h"
+#include "bridge.h"
 #include <random>
 
 unsigned int Car::lastID = 0;
@@ -44,6 +45,20 @@ Car::run()
             emit enterBridge(_direction);
         } else if(pos == (bridgeLen - bridgeEntryPos)) {
             trafficLight->release(1);
+        } else if(bridgeEntryPos < pos && pos < (bridgeLen - bridgeEntryPos)) {
+            if(_direction) {
+                int relativePos(pos-bridgeEntryPos);
+                bool success = world->bridge->move2Map(relativePos-1, relativePos);
+                while(!success) {
+                    QThread::currentThread() -> msleep(500);
+                }
+            } else {
+                int relativePos(bridgeLen-bridgeEntryPos-pos);
+                bool sucess = world->bridge->move2Map(relativePos+1, relativePos);
+                while(!sucess) {
+                    QThread::currentThread() -> msleep(500);
+                }
+            }
         }
 
         if(_direction == false) emit posChanged(id, pos);
